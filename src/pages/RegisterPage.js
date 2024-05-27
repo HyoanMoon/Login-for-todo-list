@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import api from "../utils/api";
+import { Link } from 'react-router-dom';
 
 const RegisterPage = () => {
   const [name ,setName] =useState('');
@@ -53,7 +54,7 @@ const RegisterPage = () => {
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Re-enter password</Form.Label> 
           <Form.Control type="password" placeholder="Re-enter password" onChange={(event)=>setSecondPassword(event.target.value)}/>
-          {error && <div className="bold"> {error}</div>}
+          {error && <div className="bold"> {error} <Link to='/login'>Sign In</Link> </div>}
         </Form.Group>
 
         <Button className="button-primary" type="submit">
