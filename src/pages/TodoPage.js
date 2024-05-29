@@ -62,17 +62,13 @@ const TodoPage = ({setUser, user}) => {
     }
   };
 
-  const logout = async() => {
+  const logout = () => {
     try{
-      const response = await api.post("/user/logout");
-      if(response.status === 200){
         sessionStorage.removeItem("token");
         setUser(null)
-        navigate('/');
-        
+        navigate('/');  
       }
-
-    } catch(error){
+    catch(error){
       console.log("error", error);
     }
   } 
