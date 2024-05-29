@@ -102,3 +102,34 @@ button{
   font-weight: bolder;
 
 }
+
+.parent-container {
+  display: flex;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  align-items: center; /* 세로 정렬 */
+}
+
+.welcome-text-logout {
+  display: flex;
+  align-items: center; /* 세로 정렬 */
+  color: cornflowerblue;
+  font-weight: bold;
+}
+
+.logout-button {
+  font-size: 2rem; /* 아이콘 크기 조정 */
+  margin-left: 5px; /* 텍스트와 아이콘 사이의 간격 조절 */
+  transition: color 0.3s; /* 부드러운 색상 전환을 위한 트랜지션 */
+}
+
+.logout-button:hover {
+  color: lightblue; /* 호버 시 색상 변경 */
+}
+
+
+
+
+
+
+
+

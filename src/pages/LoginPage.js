@@ -2,16 +2,15 @@ import React, {useState} from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import api from "../utils/api";
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-const LoginPage = () => {
+const LoginPage = ({user, setUser}) => {
   const [email, setEmail] =useState('');
   const [password, setPassword] =useState('');
   const [error,setError] = useState('');  // error를 저장해야지 보여준다..?
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+
 
   const handleSubmit = async (event) =>{
     event.preventDefault();
@@ -19,20 +18,23 @@ const LoginPage = () => {
       const response = await api.post("/user/login", {email,password});
         if(response.status === 200){
           setUser(response.data.user)
-          sessionStorage.setItem("token",response.data.token);
-          api.defaults.headers["authorization"] = "Bearer" + response.data.token; //토큰 값을 헤더에 저장해준다 ==>  다시 공부!!!!!!!
+          sessionStorage.setItem("token", response.data.token);
+          api.defaults.headers["authorization"] = "Bearer " + response.data.token; //토큰 값을 헤더에 저장해준다 ==>  다시 공부!!!!!!!
           setError("")
           navigate('/');
 
-        }else{
-          throw new Error(response.message); 
         }
+        throw new Error(response.message); 
+        
       
     }catch(error){
       setError(error.message);
     }
+  };
 
-  }
+if(user){
+  return <Navigate to = "/"/> 
+} 
 
   
 

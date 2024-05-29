@@ -4,13 +4,18 @@ import api from "../utils/api";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import { useNavigate } from "react-router-dom";
+import { MdLogout } from "react-icons/md";
 
-const TodoPage = () => {
+
+const TodoPage = ({setUser, user}) => {
   const [todoList, setTodoList] = useState([]);
   const [todoValue, setTodoValue] = useState("");
+  const navigate = useNavigate();
 
   const getTasks = async () => {
     const response = await api.get("/tasks");
+
     setTodoList(response.data.data);
   };
   useEffect(() => {
@@ -56,8 +61,34 @@ const TodoPage = () => {
       console.log("error", error);
     }
   };
+
+  const logout = async() => {
+    try{
+      const response = await api.post("/user/logout");
+      if(response.status === 200){
+        sessionStorage.removeItem("token");
+        setUser(null)
+        navigate('/');
+        
+      }
+
+    } catch(error){
+      console.log("error", error);
+    }
+  } 
+
   return (
+    
     <Container>
+      <div className="parent-container">
+    <div className="welcome-text-logout">
+      Welcome {user.name}!
+        <div onClick={logout} className="logout-button">
+            <MdLogout />
+        </div>
+    </div>
+</div>
+
       <Row className="add-item-row">
         <Col xs={12} sm={10}>
           <input
@@ -76,10 +107,13 @@ const TodoPage = () => {
       </Row>
 
       <TodoBoard
+       
         todoList={todoList}
         deleteItem={deleteItem}
         toggleComplete={toggleComplete}
       />
+
+    
     </Container>
   );
 };
