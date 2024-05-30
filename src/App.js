@@ -19,6 +19,7 @@ function App() {
       if(storedToken){
         const response = await api.get("/user/me")
         setUser(response.data.user);
+        console.log(response);
       }
 
 
